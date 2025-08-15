@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Process — Class Prompt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#7dd3fc; /* sky-300 */
+      --bg2:#a78bfa; /* violet-400 */
+      --card:#ffffff;
+      --ink:#111827; /* gray-900 */
+      --muted:#6b7280; /* gray-500 */
+      --accent:#22c55e; /* green-500 */
+      --accent-2:#f59e0b; /* amber-500 */
+      --danger:#ef4444; /* red-500 */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background-attachment: fixed;
+    }
+    .wrapper{
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 24px clamp(16px, 4vw, 32px) 48px;
+    }
+    .card{
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      padding: clamp(16px, 3vw, 28px);
+    }
+    header{
+      text-align:center;
+      margin-bottom: 22px;
+      color:#0b1021;
+    }
+    .title{
+      font-family: 'Fredoka', cursive;
+      font-size: clamp(28px, 4.5vw, 42px);
+      line-height: 1.1;
+      margin: 0 0 10px 0;
+      letter-spacing: 0.2px;
+    }
+    .subtitle{
+      font-size: clamp(14px, 2.4vw, 18px);
+      color: #1f2937;
+      margin:0;
+    }
+
+    /* form */
+    form{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    label{
+      font-weight: 600;
+      font-size: 14px;
+      color: #111827;
+    }
+    input[type="text"], select, textarea{
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e5e7eb; /* gray-200 */
+      border-radius: 14px;
+      outline: none;
+      font-size: 15px;
+      transition: border .12s ease, box-shadow .12s ease;
+      background: #ffffff;
+    }
+    input[type="text"]:focus, select:focus, textarea:focus{
+      border-color: #93c5fd; /* blue-300 */
+      box-shadow: 0 0 0 4px #dbeafe; /* blue-100 ring */
+    }
+    textarea{
+      min-height: 130px;
+      resize: vertical;
+    }
+    .row{
+      display: grid;
+      gap: 12px;
+    }
+    @media (min-width: 720px){
+      .row{ grid-template-columns: 1fr 1fr; }
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content: space-between;
+    }
+    .left-actions, .right-actions{ display:flex; gap:10px; align-items:center; }
+
+    button{
+      appearance:none;
+      border:none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight:700;
+      cursor:pointer;
+      transition: transform .05s ease, box-shadow .15s ease, background .2s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+    }
+    .btn-primary{
+      background: var(--accent);
+      color:white;
+    }
+    .btn-primary:hover{ filter: brightness(1.05); }
+    .btn-primary:active{ transform: translateY(1px); }
+
+    .btn-outline{
+      background: #ffffff;
+      color:#0b1021;
+      border: 2px dashed #0ea5e9; /* sky-500 */
+    }
+    .btn-outline:hover{ background:#f0f9ff; }
+
+    .btn-danger{
+      background: #fff;
+      color: var(--danger);
+      border: 2px solid var(--danger);
+    }
+    .btn-danger:hover{ background: #fff1f2; }
+
+    .counter{
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* list */
+    .list-wrap{ margin-top: 26px; }
+    .toolbar{ display:flex; gap:10px; align-items:center; justify-content: space-between; margin-bottom: 10px; }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px; border-radius: 999px; background:#f1f5f9; color:#0f172a; font-weight:600; font-size:13px;
+    }
+    .emoji{ font-size: 18px; }
+
+    ul#responses{ list-style:none; padding:0; margin:0; display:grid; gap:14px; }
+    .item{ background: rgba(255,255,255,0.9); border:1px solid #f1f5f9; padding:16px; border-radius: 18px; position:relative; overflow:hidden; }
+    .item .meta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-size:13px; color:#475569; margin-bottom:8px; }
+    .badge{ background:#dbeafe; color:#1d4ed8; padding:6px 10px; border-radius:999px; font-weight:600; font-size:12px; }
+    .name{ font-weight:700; }
+    .time{ color:#64748b; }
+    .text{ font-size:15px; line-height:1.55; }
+
+    /* fun confetti burst */
+    .burst{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .confetti{ position:absolute; width:10px; height:14px; opacity:0; animation: pop 900ms ease forwards; }
+    @keyframes pop{ 0%{ transform: translateY(0) rotate(0); opacity:1 } 100%{ transform: translateY(120px) rotate(240deg); opacity:0 } }
+
+    footer{ text-align:center; color:#0b1021; opacity:.8; margin-top: 28px; font-size:12px; }
+    a.link{ color:#0ea5e9; text-decoration: none; border-bottom:2px solid #bae6fd; }
+    a.link:hover{ background:#ecfeff; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <div class="card">
+        <h1 class="title">🌈 Class Prompt: Which design process is your <em>superpower</em> — and why?</h1>
+        <p class="subtitle">Share a short reply below. You can add your name if you like. All submissions appear on this page instantly ✨</p>
+
+        <form id="promptForm" aria-describedby="charHelp">
+          <div class="row">
+            <div>
+              <label for="name">Name (optional)</label>
+              <input id="name" name="name" type="text" placeholder="e.g., Jordan" maxlength="50" />
+            </div>
+            <div>
+              <label for="process">Design process (optional)</label>
+              <select id="process" name="process">
+                <option value="">— Select one (optional) —</option>
+                <option>Empathize</option>
+                <option>Define</option>
+                <option>Ideate</option>
+                <option>Prototype</option>
+                <option>Test</option>
+                <option>Research</option>
+                <option>Iteration</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="reply">Your reply <span class="counter" id="counter">0 / 500</span></label>
+            <textarea id="reply" name="reply" maxlength="500" placeholder="Tell us which part of the design process you shine at, and why it fits you."></textarea>
+            <div class="counter" id="charHelp">Max 500 characters. Be kind, be specific, and keep it school‑friendly 💛</div>
+          </div>
+
+          <div class="actions">
+            <div class="left-actions">
+              <button type="submit" class="btn-primary">Submit reply 🚀</button>
+              <button type="button" id="exportBtn" class="btn-outline" title="Download all replies as JSON">Export</button>
+            </div>
+            <div class="right-actions">
+              <button type="button" id="clearBtn" class="btn-danger" title="Clear all replies on this device">Clear all</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </header>
+
+    <section class="list-wrap card" aria-live="polite" aria-busy="false">
+      <div class="toolbar">
+        <div class="chip"><span class="emoji">🗂️</span> <span id="count">0</span> replies</div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <label for="filter" style="font-weight:600; font-size:13px;">Filter:</label>
+          <select id="filter">
+            <option value="">All processes</option>
+            <option>Empathize</option>
+            <option>Define</option>
+            <option>Ideate</option>
+            <option>Prototype</option>
+            <option>Test</option>
+            <option>Research</option>
+            <option>Iteration</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <ul id="responses"></ul>
+    </section>
+
+    <footer>
+      <p>Built for classrooms • Data is saved to <strong>this device only</strong> using localStorage. For multi‑device collection, plug this into any simple backend or spreadsheet tool later.</p>
+    </footer>
+  </div>
+
+  <template id="itemTpl">
+    <li class="item">
+      <div class="burst" aria-hidden="true"></div>
+      <div class="meta">
+        <span class="badge process"></span>
+        <span class="name"></span>
+        <span class="time"></span>
+      </div>
+      <div class="text"></div>
+    </li>
+  </template>
+
+  <script>
+    const LS_KEY = 'designPromptResponses.v1';
+    const $ = sel => document.querySelector(sel);
+
+    const form = $('#promptForm');
+    const replyEl = $('#reply');
+    const nameEl = $('#name');
+    const procEl = $('#process');
+    const list = $('#responses');
+    const counter = $('#counter');
+    const countBadge = $('#count');
+    const filterEl = $('#filter');
+    const exportBtn = $('#exportBtn');
+    const clearBtn = $('#clearBtn');
+
+    const state = {
+      items: loadLS(),
+      filter: ''
+    };
+
+    function loadLS(){
+      try{ return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+      catch(e){ return []; }
+    }
+    function saveLS(){ localStorage.setItem(LS_KEY, JSON.stringify(state.items)); }
+
+    function escapeHTML(str){
+      return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+    }
+
+    function fmtTime(ts){
+      const d = new Date(ts);
+      return d.toLocaleString([], { hour:'2-digit', minute:'2-digit', month:'short', day:'numeric' });
+    }
+
+    function render(){
+      list.innerHTML = '';
+      const filtered = state.filter ? state.items.filter(i => i.process === state.filter) : state.items;
+      countBadge.textContent = filtered.length;
+
+      filtered
+        .slice() // copy
+        .sort((a,b) => b.time - a.time) // newest first
+        .forEach(item => list.appendChild(renderItem(item)));
+    }
+
+    function renderItem(item){
+      const tpl = document.getElementById('itemTpl');
+      const node = tpl.content.firstElementChild.cloneNode(true);
+
+      const process = node.querySelector('.process');
+      const name = node.querySelector('.name');
+      const time = node.querySelector('.time');
+      const text = node.querySelector('.text');
+
+      process.textContent = item.process || 'Design • ✨';
+      name.textContent = item.name ? `• ${item.name}` : '';
+      time.textContent = `• ${fmtTime(item.time)}`;
+      text.innerHTML = nl2br(escapeHTML(item.text.trim()));
+
+      sprinkleConfetti(node.querySelector('.burst'));
+      return node;
+    }
+
+    function nl2br(str){
+      return str.replace(/\n/g, '<br />');
+    }
+
+    function sprinkleConfetti(container){
+      if(!container) return;
+      const colors = ['#22c55e','#0ea5e9','#f472b6','#f59e0b','#a78bfa','#ef4444'];
+      for(let i=0;i<14;i++){
+        const piece = document.createElement('div');
+        piece.className='confetti';
+        piece.style.left = Math.random()*100 + '%';
+        piece.style.top = Math.random()*-40 + 'px';
+        piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+        piece.style.transform = `rotate(${Math.random()*360}deg)`;
+        piece.style.animationDelay = (Math.random()*0.2)+'s';
+        container.appendChild(piece);
+        setTimeout(()=> piece.remove(), 1200);
+      }
+    }
+
+    // live counter
+    replyEl.addEventListener('input', () => {
+      counter.textContent = `${replyEl.value.length} / ${replyEl.maxLength}`;
+    });
+
+    // filter
+    filterEl.addEventListener('change', () => { state.filter = filterEl.value; render(); });
+
+    // export
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state.items, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'design-prompt-replies.json'; a.click();
+      setTimeout(()=> URL.revokeObjectURL(url), 1000);
+    });
+
+    // clear
+    clearBtn.addEventListener('click', () => {
+      if(confirm('This will remove all saved replies on THIS device only. Proceed?')){
+        state.items = []; saveLS(); render();
+      }
+    });
+
+    // submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = replyEl.value.trim();
+      if(!text){
+        replyEl.focus();
+        replyEl.setCustomValidity('Please write a short reply before submitting.');
+        replyEl.reportValidity();
+        setTimeout(()=> replyEl.setCustomValidity(''), 1500);
+        return;
+      }
+      const item = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random(),
+        name: nameEl.value.trim().slice(0,50),
+        process: procEl.value,
+        text,
+        time: Date.now()
+      };
+      state.items.push(item);
+      saveLS();
+
+      // reset form
+      form.reset();
+      counter.textContent = `0 / ${replyEl.maxLength}`;
+
+      // instant render
+      render();
+      // focus back to reply for next student
+      replyEl.focus();
+    });
+
+    // init
+    render();
+  </script>
+</body>
+</html>
