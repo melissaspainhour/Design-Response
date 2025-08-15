@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravenscroft Design Process Reflection</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="color-scheme" content="light only">
+</head>
+<body onload="setupPoster()">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div class="title">Ravenscroft</div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="superpower.html">Design Superpower</a>
+        <a href="kryptonite.html">Design Kryptonite</a>
+      </nav>
+      <p class="card" style="margin-top:12px;">
+        <strong>How to use:</strong><br>
+        Use the file picker below to add the graphics from your PDF (export pages as images or add the PDF). They will display on the home page.
+      </p>
+    </aside>
+
+    <main class="content">
+      <h1 class="h1">Ravenscroft Design Process Reflection</h1>
+      <span class="badge">Front Page</span>
+
+      <section class="poster" style="margin-top:16px;">
+        <div class="speech">
+          Drop in the graphics from your PDF here 👇 (PNG/JPG or a PDF). This stays on this device only.
+        </div>
+        <div class="drop">
+          <label for="posterInput"><strong>Add images or a PDF</strong></label><br>
+          <input id="posterInput" type="file" multiple accept="image/*,application/pdf" />
+          <div class="preview-grid" id="posterGrid" aria-live="polite" style="margin-top:12px;"></div>
+        </div>
+      </section>
+
+      <footer>
+        <p>Built for classroom use. No server needed; everything saves to localStorage on this device.</p>
+      </footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
