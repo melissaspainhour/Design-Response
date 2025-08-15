@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Design Kryptonite</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body onload="setupReplies({key:'kryptoniteReplies', formSel:'#replyForm', listSel:'#replyList'})">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div class="title">Ravenscroft</div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="superpower.html">Design Superpower</a>
+        <a href="kryptonite.html">Design Kryptonite</a>
+      </nav>
+      <p class="card"><strong>Prompt:</strong><br>Which design process is your Kryptonite and why?</p>
+    </aside>
+
+    <main class="content">
+      <h1 class="h1">Design Kryptonite</h1>
+      <span class="badge">Own your growth</span>
+
+      <form id="replyForm" class="form card" style="margin-top:14px;">
+        <div class="speech" style="margin-bottom:8px;">
+          Which design process is your Kryptonite and why?
+        </div>
+
+        <label>Name (optional)
+          <input type="text" name="name" maxlength="80" placeholder="e.g., Jordan" />
+        </label>
+
+        <label>Design process (optional)
+          <select name="process">
+            <option value="">— Select one —</option>
+            <option>Empathize</option>
+            <option>Define</option>
+            <option>Ideate</option>
+            <option>Prototype</option>
+            <option>Test</option>
+            <option>Research</option>
+            <option>Iteration</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>Your reply
+          <textarea name="text" maxlength="500" placeholder="Tell us which part challenges you and why."></textarea>
+        </label>
+
+        <div class="actions">
+          <button class="btn" type="submit">Submit ⚡</button>
+          <button class="btn secondary" type="button" data-export>Export</button>
+          <button class="btn warn" type="button" data-clear>Clear All</button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <span class="badge">Replies</span>
+      </div>
+      <ul class="list" id="replyList" aria-live="polite"></ul>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

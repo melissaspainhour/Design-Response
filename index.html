@@ -1,132 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Design Process — Class Prompts</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-    }
-    body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      font-family: 'Comic Sans MS', 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a1c4fd);
-      background-size: 400% 400%;
-      animation: gradientShift 10s ease infinite;
-      color: #111827;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .half {
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      box-sizing: border-box;
-      background: rgba(255, 255, 255, 0.85);
-    }
-    .prompt {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    textarea {
-      flex: 0 0 150px;
-      padding: 10px;
-      font-size: 1em;
-      margin-bottom: 10px;
-      resize: vertical;
-      border-radius: 8px;
-      border: 2px solid #ffb347;
-      background-color: #fff8f0;
-    }
-    button {
-      padding: 10px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      border: none;
-      background-color: #ff7eb9;
-      color: white;
-      font-weight: bold;
-      transition: transform 0.1s ease, background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #ff65a3;
-      transform: scale(1.05);
-    }
-    .responses {
-      flex: 1;
-      overflow-y: auto;
-      border-top: 2px dashed #ffb347;
-      padding-top: 10px;
-    }
-    .response {
-      background: #fff0f6;
-      padding: 8px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      border: 1px solid #ffd6e8;
-    }
-  </style>
+  <title>Ravenscroft Design Process Reflection</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="color-scheme" content="light only">
 </head>
-<body>
-  <div class="half" id="left-half">
-    <div class="prompt">🎯 Which design process do you feel is your strength and why?</div>
-    <textarea id="strengthReply" placeholder="Type your answer here..."></textarea>
-    <button onclick="submitReply('strength')">✨ Submit</button>
-    <div class="responses" id="strengthResponses"></div>
+<body onload="setupPoster()">
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">R</div>
+        <div class="title">Ravenscroft</div>
+      </div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="superpower.html">Design Superpower</a>
+        <a href="kryptonite.html">Design Kryptonite</a>
+      </nav>
+      <p class="card" style="margin-top:12px;">
+        <strong>How to use:</strong><br>
+        Use the file picker below to add the graphics from your PDF (export pages as images or add the PDF). They will display on the home page.
+      </p>
+    </aside>
+
+    <main class="content">
+      <h1 class="h1">Ravenscroft Design Process Reflection</h1>
+      <span class="badge">Front Page</span>
+
+      <section class="poster" style="margin-top:16px;">
+        <div class="speech">
+          Drop in the graphics from your PDF here 👇 (PNG/JPG or a PDF). This stays on this device only.
+        </div>
+        <div class="drop">
+          <label for="posterInput"><strong>Add images or a PDF</strong></label><br>
+          <input id="posterInput" type="file" multiple accept="image/*,application/pdf" />
+          <div class="preview-grid" id="posterGrid" aria-live="polite" style="margin-top:12px;"></div>
+        </div>
+      </section>
+
+      <footer>
+        <p>Built for classroom use. No server needed; everything saves to localStorage on this device.</p>
+      </footer>
+    </main>
   </div>
-
-  <div class="half" id="right-half">
-    <div class="prompt">🚀 Which design process do you feel you need to work on this year and why?</div>
-    <textarea id="improveReply" placeholder="Type your answer here..."></textarea>
-    <button onclick="submitReply('improve')">🌟 Submit</button>
-    <div class="responses" id="improveResponses"></div>
-  </div>
-
-  <script>
-    function loadReplies(key) {
-      return JSON.parse(localStorage.getItem(key) || '[]');
-    }
-
-    function saveReplies(key, replies) {
-      localStorage.setItem(key, JSON.stringify(replies));
-    }
-
-    function renderReplies(key, containerId) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = '';
-      loadReplies(key).forEach(reply => {
-        const div = document.createElement('div');
-        div.className = 'response';
-        div.textContent = reply;
-        container.appendChild(div);
-      });
-    }
-
-    function submitReply(type) {
-      const textarea = document.getElementById(type + 'Reply');
-      const text = textarea.value.trim();
-      if (!text) return;
-      const key = type + 'Replies';
-      const replies = loadReplies(key);
-      replies.push(text);
-      saveReplies(key, replies);
-      textarea.value = '';
-      renderReplies(key, type + 'Responses');
-    }
-
-    renderReplies('strengthReplies', 'strengthResponses');
-    renderReplies('improveReplies', 'improveResponses');
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
