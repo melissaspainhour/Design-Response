@@ -9,6 +9,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: row;
       height: 100vh;
     }
     .half {
@@ -17,6 +18,10 @@
       flex-direction: column;
       padding: 20px;
       box-sizing: border-box;
+      border-right: 2px solid #ddd;
+    }
+    .half:last-child {
+      border-right: none;
     }
     .prompt {
       font-size: 1.2em;
@@ -24,20 +29,21 @@
       margin-bottom: 10px;
     }
     textarea {
-      flex: 1;
+      flex: 0 0 150px;
       padding: 10px;
       font-size: 1em;
       margin-bottom: 10px;
+      resize: vertical;
     }
     button {
       padding: 10px;
       font-size: 1em;
       cursor: pointer;
+      margin-bottom: 10px;
     }
     .responses {
       flex: 1;
       overflow-y: auto;
-      margin-top: 10px;
       border-top: 1px solid #ccc;
       padding-top: 10px;
     }
