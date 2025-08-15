@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Design Process — Class Prompts</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    body {
       display: flex;
       flex-direction: row;
-      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #7dd3fc, #a78bfa);
+      color: #111827;
     }
     .half {
       flex: 1;
@@ -18,13 +24,14 @@
       flex-direction: column;
       padding: 20px;
       box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.85);
       border-right: 2px solid #ddd;
     }
     .half:last-child {
       border-right: none;
     }
     .prompt {
-      font-size: 1.2em;
+      font-size: 1.4em;
       font-weight: bold;
       margin-bottom: 10px;
     }
@@ -34,12 +41,22 @@
       font-size: 1em;
       margin-bottom: 10px;
       resize: vertical;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
     button {
       padding: 10px;
       font-size: 1em;
       cursor: pointer;
       margin-bottom: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #22c55e;
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #16a34a;
     }
     .responses {
       flex: 1;
